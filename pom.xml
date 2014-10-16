@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.snu.reef.ALS_SVM</groupId>
     <artifactId>ALS_SVM</artifactId>
@@ -10,8 +9,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <logging>-Djava.util.logging.config.class=com.microsoft.reef.util.logging.Config</logging>
-        <hadoop.version>2.2.0</hadoop.version>
-        <reef.version>0.8</reef.version>
+        <hadoop.version>2.5.1</hadoop.version>
+        <reef.version>0.9-SNAPSHOT</reef.version>
         <junit.version>4.11</junit.version>
     </properties>
     <repositories>
@@ -69,20 +68,38 @@
             <artifactId>reef-poison</artifactId>
             <version>${reef.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.tang</groupId>
+            <artifactId>tang</artifactId>
+            <version>${reef.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.wake</groupId>
+            <artifactId>wake</artifactId>
+            <version>${reef.version}</version>
+        </dependency>
         <!-- End of REEF -->
-        
+
         <!-- HADOOP -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
             <version>${hadoop.version}</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-yarn-common</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-yarn-client</artifactId>
+            <version>${hadoop.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-mapreduce-client-core</artifactId>
             <version>${hadoop.version}</version>
-            <scope>provided</scope>
         </dependency>
         <!-- End of HADOOP -->
 
