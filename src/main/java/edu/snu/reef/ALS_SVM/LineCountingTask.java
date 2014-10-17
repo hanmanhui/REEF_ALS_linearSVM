@@ -47,7 +47,8 @@ public class LineCountingTask implements Task {
 		LOG.log(Level.FINER, "LineCounting task started");
 		int numEx = 0;
 		for (final Pair<LongWritable, Text> keyValue : dataSet) {
-			// LOG.log(Level.FINEST, "Read line: {0}", keyValue);
+			
+			LOG.log(Level.FINEST, "Read line: {0}", keyValue);
 			++numEx;
 		}
 		LOG.log(Level.FINER, "LineCounting task finished: read {0} lines", numEx);

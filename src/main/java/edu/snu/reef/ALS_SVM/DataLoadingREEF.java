@@ -113,7 +113,6 @@ public class DataLoadingREEF {
 								.set(DriverConfiguration.GLOBAL_LIBRARIES, EnvironmentUtils.getClassLocation(LineCounter.class))
 								.set(DriverConfiguration.ON_CONTEXT_ACTIVE, LineCounter.ContextActiveHandler.class)
 								.set(DriverConfiguration.ON_TASK_COMPLETED, LineCounter.TaskCompletedHandler.class)
-								.set(DriverConfiguration.ON_TASK_FAILED, LineCounter.TaskFailedHandler.class)
 								.set(DriverConfiguration.DRIVER_IDENTIFIER, "DataLoadingREEF"))
 								.build();
 

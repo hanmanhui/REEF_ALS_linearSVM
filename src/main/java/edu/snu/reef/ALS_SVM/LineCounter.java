@@ -25,7 +25,6 @@ import com.microsoft.reef.annotations.audience.DriverSide;
 import com.microsoft.reef.driver.context.ActiveContext;
 import com.microsoft.reef.driver.context.ContextConfiguration;
 import com.microsoft.reef.driver.task.CompletedTask;
-import com.microsoft.reef.driver.task.FailedTask;
 import com.microsoft.reef.driver.task.TaskConfiguration;
 import com.microsoft.reef.io.data.loading.api.DataLoadingService;
 import com.microsoft.reef.poison.PoisonedConfiguration;
@@ -111,31 +110,19 @@ public class LineCounter {
 
 			final String taskId = completedTask.getId();
 			LOG.log(Level.FINEST, "Completed Task: {0}", taskId);
-
+			
 			final byte[] retBytes = completedTask.get();
 			final String retStr = retBytes == null ? "No RetVal" : new String(retBytes);
 			LOG.log(Level.FINE, "Line count from {0} : {1}", new String[] {taskId, retStr });
-
 			lineCnt.addAndGet(Integer.parseInt(retStr));
 
 			if (completedDataTasks.decrementAndGet() <= 0) {
 				LOG.log(Level.INFO, "Total line count: {0}", lineCnt.get());
+				System.out.println("[BDCS] Total Line count " + lineCnt.get());
 			}
 
 			LOG.log(Level.FINEST, "Releasing Context: {0}", taskId);
 			completedTask.getActiveContext().close();
 		}
-	}
-	
-	public class TaskFailedHandler implements EventHandler<FailedTask> {
-
-		@Override
-		public void onNext(final FailedTask failedTask) {
-			// TODO Auto-generated method stub
-			LOG.log(Level.WARNING, "Task failed: " + failedTask.getId(), failedTask.getReason().orElse(null));
-			if(failedTask.getActiveContext().isPresent()) {
-				failedTask.getActiveContext().get().close();
-			}
-		}		
 	}
 }
