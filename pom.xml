@@ -76,15 +76,21 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
             <version>${hadoop.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-mapreduce-client-core</artifactId>
             <version>${hadoop.version}</version>
-            <scope>provided</scope>
         </dependency>
         <!-- End of HADOOP -->
+        
+        <!-- Stanford NLP -->
+        <dependency>
+        	<groupId>edu.stanford.nlp</groupId>
+        	<artifactId>stanford-corenlp</artifactId>
+        	<version>3.4.1</version>
+       	</dependency>
+    	<!-- End of Stanford NLP -->
 
         <dependency>
             <groupId>org.slf4j</groupId>
