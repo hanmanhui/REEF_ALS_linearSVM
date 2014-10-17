@@ -83,6 +83,14 @@
             <version>${hadoop.version}</version>
         </dependency>
         <!-- End of HADOOP -->
+        
+        <!-- Stanford NLP -->
+        <dependency>
+        	<groupId>edu.stanford.nlp</groupId>
+        	<artifactId>stanford-corenlp</artifactId>
+        	<version>3.4.1</version>
+       	</dependency>
+    	<!-- End of Stanford NLP -->
 
         <dependency>
             <groupId>org.slf4j</groupId>
