@@ -1,5 +1,7 @@
 package edu.snu.reef.ALS_SVM;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
@@ -77,7 +79,16 @@ public class SMSDataLoader {
 			final String taskId = completedTask.getId();
 			
 			final byte[] retBytes = completedTask.get();
-			final String retStr = retBytes == null ? "No Retval" : new String(retBytes);
+			try {
+				List<SMSVector> lv = (List<SMSVector>) ObjectToByteArray.deserialize(retBytes);
+				System.out.println("[BDCS] Completed vectors : " + lv.size());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			if(completedDataTasks.decrementAndGet() <= 0) {
 				System.out.println("[BDCS] Finished");
