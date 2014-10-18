@@ -36,12 +36,22 @@ public class SMSDataLoadTask implements Task {
 	@Override
 	public byte[] call(final byte[] memento) throws Exception {
 		// TODO Auto-generated method stub
+		final List<SMSVector> ret = new ArrayList<SMSVector>();
+		
 		for(final Pair<LongWritable, Text> keyValue : dataSet) {
-			PTBTokenizer tokenizer = new PTBTokenizer(new StringReader(keyValue.second.toString()), new CoreLabelTokenFactory(), "");
+			final PTBTokenizer tokenizer = new PTBTokenizer(new StringReader(keyValue.second.toString()), new CoreLabelTokenFactory(), "");
 			
-			Map<String, Double> words = new HashMap<String, Double>();
+			final Map<String, Double> words = new HashMap<String, Double>();
+			final SMSVector v = new SMSVector();
 			
-			for(CoreLabel label; tokenizer.hasNext(); ) {
+			CoreLabel label = (CoreLabel) tokenizer.next();
+			if(label.word() == "SPAM") {
+				v.setSpam(true);
+			} else {
+				v.setSpam(false);
+			}
+			
+			while(tokenizer.hasNext()) {
 				label = (CoreLabel) tokenizer.next();
 				if(label.word().length() < 2) {
 					continue;
@@ -50,18 +60,23 @@ public class SMSDataLoadTask implements Task {
 					words.put(label.word(), 1 + (t == null ? 0 : t));
 				}
 			}
+			
+			if(words.isEmpty()) {
+				continue;
+			}
+			
 			// TF Calculation (Scaling)
-			List<Double> values = new ArrayList<Double>(words.values());
+			final List<Double> values = new ArrayList<Double>(words.values());
 			Collections.sort(values);
 			Double maxCount = values.get(values.size()-1);
-			
 			for(String word : words.keySet()) {
-				words.put(word, 0.5 * (1 + words.get(word)/maxCount));
-				System.out.println("[BDCS] word : " + word + " value : " + words.get(word));
+				v.addWord(word, words.get(word)/maxCount);
 			}
+			
+			ret.add(v);
 		}
 		
-		return null;
+		return ObjectToByteArray.serialize(ret);
 	}
 
 }
