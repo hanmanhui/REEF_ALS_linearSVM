@@ -80,7 +80,7 @@ public final class Client {
 				.build();
 		
 		final Configuration dataLoadingConfiguration = new DataLoadingRequestBuilder()
-			.setMemoryMB(1024)
+			.setMemoryMB(2048)
 			.setInputFormatClass(TextInputFormat.class)
 			.setInputPath(inputDir)
 			.setNumberOfDesiredSplits(NUM_SPLITS)
