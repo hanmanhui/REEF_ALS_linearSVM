@@ -89,8 +89,16 @@
         	<groupId>edu.stanford.nlp</groupId>
         	<artifactId>stanford-corenlp</artifactId>
         	<version>3.4.1</version>
-       	</dependency>
-    	<!-- End of Stanford NLP -->
+        </dependency>
+		<!-- End of Stanford NLP -->
+		
+		<!-- liblinear -->
+		<dependency>
+			<groupId>de.bwaldvogel</groupId>
+			<artifactId>liblinear</artifactId>
+			<version>1.94</version>
+		</dependency>		
+		<!-- End of liblinear -->
 
         <dependency>
             <groupId>org.slf4j</groupId>
